@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 const base =
   'inline-flex items-center justify-center font-sans font-semibold tracking-tight rounded-md ' +
@@ -18,20 +19,27 @@ const variants: Record<Variant, string> = {
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   fullWidth?: boolean;
+  showArrow?: boolean;
   children: ReactNode;
 }
 
 export function Button({
   variant = 'accent',
   fullWidth = false,
+  showArrow = true,
   className = '',
   children,
   ...rest
 }: ButtonProps) {
   const width = fullWidth ? 'w-full' : '';
+  const isAccent = variant === 'accent';
+  
   return (
-    <button className={`${base} ${variants[variant]} ${width} ${className}`.trim()} {...rest}>
-      {children}
+    <button className={`${base} ${variants[variant]} ${width} group ${className}`.trim()} {...rest}>
+      <span>{children}</span>
+      {isAccent && showArrow && (
+        <ArrowRight size={16} className="ml-2 transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0" />
+      )}
     </button>
   );
 }

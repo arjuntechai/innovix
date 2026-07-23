@@ -36,7 +36,7 @@ export function Section({
       id={id}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
-      className={`${background} py-24 md:py-32`}
+      className={`${background} py-24 md:py-32 border-t border-accent/10`}
     >
       <motion.div
         className={`max-w-6xl mx-auto px-6 md:px-8 ${className}`.trim()}

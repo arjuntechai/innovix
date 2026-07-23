@@ -24,9 +24,13 @@ export function HowItWorks() {
 
       <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-12 relative">
         {/* Horizontal connecting line (desktop) */}
-        <div
+        <motion.div
           aria-hidden="true"
-          className="hidden md:block absolute left-0 right-0 top-7 h-px bg-[#2A2A2A]"
+          className="hidden md:block absolute left-0 right-0 top-7 h-px bg-[#2A2A2A] origin-left"
+          initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.15 }}
         />
 
         {steps.map((step, index) => {
@@ -38,7 +42,7 @@ export function HowItWorks() {
                 visible: {
                   opacity: 1,
                   y: 0,
-                  transition: { duration: 0.6, ease: 'easeOut' as const, delay: index * 0.08 },
+                  transition: { duration: 0.6, ease: 'easeOut' as const, delay: index * 0.12 },
                 },
               };
 
@@ -53,15 +57,19 @@ export function HowItWorks() {
             >
               {/* Vertical connecting line (mobile) */}
               {index < steps.length - 1 && (
-                <div
+                <motion.div
                   aria-hidden="true"
-                  className="md:hidden absolute left-7 top-14 -bottom-12 w-px bg-[#2A2A2A]"
+                  className="md:hidden absolute left-7 top-14 -bottom-12 w-px bg-[#2A2A2A] origin-top"
+                  initial={prefersReducedMotion ? { scaleY: 1 } : { scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: 'easeInOut', delay: index * 0.1 }}
                 />
               )}
 
-              <div className="flex items-start gap-4 md:block">
-                <div className="relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-[#1A1A1A] border border-[#2A2A2A]">
-                  <Icon size={22} aria-hidden="true" className="text-accent" />
+              <div className="flex items-start gap-4 md:block group">
+                <div className="relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-[#1A1A1A] border border-[#2A2A2A] transition-all duration-300 group-hover:border-accent group-hover:shadow-[0_0_12px_rgba(156,175,136,0.15)]">
+                  <Icon size={22} aria-hidden="true" className="text-accent transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div className="md:mt-6">
                   <p className="text-xs uppercase tracking-[0.12em] font-medium text-[#6B6B6B]">

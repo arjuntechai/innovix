@@ -1,8 +1,33 @@
+import { Variants, motion, useReducedMotion } from 'framer-motion';
 import { whatHappensNext } from '@/content';
 import { Section } from '@/components/Section';
 
 export function WhatHappensNext() {
+  const prefersReducedMotion = useReducedMotion();
   const { steps } = whatHappensNext;
+
+  const containerVariants: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.12,
+          },
+        },
+      };
+
+  const itemVariants: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 1, x: 0 }, visible: { opacity: 1, x: 0 } }
+    : {
+        hidden: { opacity: 0, x: -12 },
+        visible: {
+          opacity: 1,
+          x: 0,
+          transition: { duration: 0.5, ease: 'easeOut' as const },
+        },
+      };
 
   return (
     <Section
@@ -14,26 +39,36 @@ export function WhatHappensNext() {
           {whatHappensNext.headline}
         </h2>
 
-        <ol className="mt-14 md:mt-20 space-y-8 md:space-y-10">
+        <motion.ol 
+          className="mt-14 md:mt-20 space-y-8 md:space-y-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
           {steps.map((step, index) => (
-            <li key={step.title} className="flex gap-5 md:gap-6">
+            <motion.li 
+              key={step.title} 
+              variants={itemVariants}
+              className="flex gap-5 md:gap-6 group"
+            >
               <span
-                className="flex-shrink-0 font-mono text-sm md:text-base text-[#6B6B6B] tabular-nums mt-1 w-8"
+                className="flex-shrink-0 font-mono text-sm md:text-base text-[#6B6B6B] transition-colors duration-300 group-hover:text-accent/80 tabular-nums mt-1 w-8"
                 aria-hidden="true"
               >
                 {String(index + 1).padStart(2, '0')}
               </span>
               <div>
-                <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-[#E8E8E8]">
+                <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-[#E8E8E8] transition-colors duration-300 group-hover:text-accent/90">
                   {step.title}
                 </h3>
                 <p className="mt-2 max-w-[65ch] text-base md:text-lg leading-relaxed text-[#A0A0A0]">
                   {step.detail}
                 </p>
               </div>
-            </li>
+            </motion.li>
           ))}
-        </ol>
+        </motion.ol>
       </div>
     </Section>
   );
