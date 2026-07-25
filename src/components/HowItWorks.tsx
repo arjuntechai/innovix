@@ -12,12 +12,16 @@ const ICONS = {
 
 type IconKey = keyof typeof ICONS;
 
-export function HowItWorks() {
+interface HowItWorksProps {
+  id?: string;
+}
+
+export function HowItWorks({ id }: HowItWorksProps) {
   const prefersReducedMotion = useReducedMotion();
   const { steps } = howItWorks;
 
   return (
-    <Section background="bg-[#111111]" ariaLabel="How it works">
+    <Section id={id} background="bg-[#111111]" ariaLabel="How it works">
       <h2 className="text-3xl md:text-4xl lg:text-5xl leading-[1.15] font-semibold tracking-tight text-[#E8E8E8] max-w-[65ch]">
         How it works
       </h2>
@@ -72,7 +76,7 @@ export function HowItWorks() {
                   <Icon size={22} aria-hidden="true" className="text-accent transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div className="md:mt-6">
-                  <p className="text-xs uppercase tracking-[0.12em] font-medium text-[#6B6B6B]">
+                  <p className="font-display italic font-light text-accent/30">
                     {step.number}
                   </p>
                   <h3 className="mt-2 text-xl md:text-2xl font-semibold tracking-tight text-[#E8E8E8]">

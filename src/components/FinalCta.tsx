@@ -19,10 +19,13 @@ export function FinalCta({ onCta }: FinalCtaProps) {
   return (
     <section
       aria-label="Final call to action"
-      className="bg-[#111111] border-t border-[#1F1F1F] py-24 md:py-32"
+      className="bg-[#111111] border-t border-[#1F1F1F] py-24 md:py-32 relative overflow-hidden"
     >
+      {/* Radial ambient blur backdrop */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-accent/5 rounded-full blur-[110px] pointer-events-none mix-blend-screen" />
+      
       <motion.div
-        className="max-w-6xl mx-auto px-6 md:px-8"
+        className="max-w-6xl mx-auto px-6 md:px-8 relative z-10"
         variants={variants}
         initial="hidden"
         whileInView="visible"

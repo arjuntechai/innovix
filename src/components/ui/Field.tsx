@@ -13,8 +13,8 @@ interface FieldBase {
 
 const inputBase =
   'w-full rounded-md bg-[#0A0A0A] border border-[#2A2A2A] px-4 py-3 text-[#E8E8E8] ' +
-  'placeholder:text-[#5A5A5A] transition-all duration-200 hover:border-accent/30 ' +
-  'focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none min-h-[44px]';
+  'placeholder:text-[#5A5A5A] transition-all duration-300 hover:border-accent/30 ' +
+  'focus:border-accent focus:bg-[#0E0E0E] focus:ring-2 focus:ring-accent/20 focus:outline-none min-h-[44px]';
 
 function Label({ htmlFor, children }: { htmlFor: string; children: ReactNode }) {
   return (

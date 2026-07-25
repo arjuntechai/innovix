@@ -46,14 +46,14 @@ export default function App() {
         className="fixed top-0 left-0 right-0 h-[2px] bg-accent origin-left z-[9999]"
         style={{ scaleX: progressScale }}
       />
-      <Header />
+      <Header onCta={() => openLead('review-request')} />
       <main>
         <Hero onCta={() => openLead('review-request')} />
         <ForWhom />
-        <HowItWorks />
-        <HowWeThink />
+        <HowItWorks id="process" />
+        <HowWeThink id="philosophy" />
         <LeadMagnet onCta={() => openLead('checklist')} />
-        <WhatHappensNext />
+        <WhatHappensNext id="next-steps" />
         <FinalCta onCta={() => openLead('review-request')} />
       </main>
       <Footer onPrivacy={openPrivacy} />

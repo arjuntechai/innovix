@@ -81,11 +81,11 @@ export function Hero({ onCta }: HeroProps) {
           animate="visible"
         >
           <motion.h1
-            className="font-display text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-[-0.02em]"
+            className="font-display text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-[-0.035em] sm:tracking-[-0.045em]"
             variants={itemVariants}
           >
             <span className="text-[#E8E8E8] block">{hero.headlinePrimary}</span>
-            <span className="text-[#6B6B6B] block font-light italic mt-3 text-[0.88em]">
+            <span className="text-accent/75 block font-light italic mt-3 text-[0.88em]">
               {hero.headlineSecondary}
             </span>
           </motion.h1>

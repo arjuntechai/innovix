@@ -10,7 +10,7 @@ export function ForWhom() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* For */}
-        <div className="relative overflow-hidden group rounded-lg bg-[#111111] border border-[#2A2A2A] p-8 md:p-10 transition-all duration-300 hover:border-accent/40">
+        <div className="relative overflow-hidden group rounded-lg bg-gradient-to-b from-[#151515] to-[#0D0D0D] border border-[#2A2A2A] p-8 md:p-10 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.455)]">
           {/* Subtle accent hover indicator dot in the top right */}
           <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -34,7 +34,7 @@ export function ForWhom() {
         </div>
 
         {/* Not for */}
-        <div className="relative overflow-hidden group rounded-lg bg-[#141414] border border-[#2A2A2A] p-8 md:p-10 transition-all duration-300 hover:border-neutral-700">
+        <div className="relative overflow-hidden group rounded-lg bg-gradient-to-b from-[#151515] to-[#0D0D0D] border border-[#2A2A2A] p-8 md:p-10 transition-all duration-300 hover:border-neutral-700 hover:shadow-[0_20px_50px_rgba(0,0,0,0.455)]">
           {/* Subtle neutral hover indicator dot in the top right */}
           <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-[#6B6B6B] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 

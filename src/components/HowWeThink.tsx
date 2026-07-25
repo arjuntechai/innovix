@@ -2,7 +2,11 @@ import { Variants, motion, useReducedMotion } from 'framer-motion';
 import { howWeThink } from '@/content';
 import { Section } from '@/components/Section';
 
-export function HowWeThink() {
+interface HowWeThinkProps {
+  id?: string;
+}
+
+export function HowWeThink({ id }: HowWeThinkProps) {
   const prefersReducedMotion = useReducedMotion();
   const { pillars } = howWeThink;
 
@@ -31,6 +35,7 @@ export function HowWeThink() {
 
   return (
     <Section
+      id={id}
       background="bg-[#0A0A0A]"
       ariaLabel="How we think"
     >
@@ -67,7 +72,7 @@ export function HowWeThink() {
           <motion.div
             key={pillar.title}
             variants={itemVariants}
-            className="rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] p-8 transition-all duration-300 hover:border-accent/40 relative overflow-hidden group"
+            className="rounded-lg bg-gradient-to-b from-[#151515] to-[#0D0D0D] border border-[#2A2A2A] p-8 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.455)] relative overflow-hidden group"
           >
             {/* Subtle accent hover indicator dot in the top right */}
             <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

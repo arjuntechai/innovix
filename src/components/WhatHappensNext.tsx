@@ -2,7 +2,11 @@ import { Variants, motion, useReducedMotion } from 'framer-motion';
 import { whatHappensNext } from '@/content';
 import { Section } from '@/components/Section';
 
-export function WhatHappensNext() {
+interface WhatHappensNextProps {
+  id?: string;
+}
+
+export function WhatHappensNext({ id }: WhatHappensNextProps) {
   const prefersReducedMotion = useReducedMotion();
   const { steps } = whatHappensNext;
 
@@ -31,6 +35,7 @@ export function WhatHappensNext() {
 
   return (
     <Section
+      id={id}
       background="bg-[#0A0A0A]"
       ariaLabel="What happens next"
     >
@@ -53,7 +58,7 @@ export function WhatHappensNext() {
               className="flex gap-5 md:gap-6 group"
             >
               <span
-                className="flex-shrink-0 font-mono text-sm md:text-base text-[#6B6B6B] transition-colors duration-300 group-hover:text-accent/80 tabular-nums mt-1 w-8"
+                className="flex-shrink-0 font-display italic font-light text-accent/30 transition-colors duration-300 group-hover:text-accent/50 tabular-nums mt-1 w-8"
                 aria-hidden="true"
               >
                 {String(index + 1).padStart(2, '0')}

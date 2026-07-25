@@ -99,8 +99,7 @@ export function Modal({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(0,0,0,0.85)' }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/65"
           variants={overlayVariants}
           initial="hidden"
           animate="visible"
