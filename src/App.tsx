@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { ForWhom } from '@/components/ForWhom';
@@ -60,6 +61,7 @@ export default function App() {
 
       <LeadModal open={leadOpen} source={leadSource} onClose={closeLead} />
       <PrivacyModal open={privacyOpen} onClose={closePrivacy} />
+      <Analytics />
     </div>
   );
 }
