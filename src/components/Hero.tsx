@@ -51,26 +51,61 @@ export function Hero({ onCta }: HeroProps) {
         }}
       />
 
-      {/* Faint slow-moving sage-tinted glow (large soft blur orb) */}
+      {/* Animated gradient blobs for subtle dynamic movement */}
       {!prefersReducedMotion ? (
-        <motion.div
-          className="absolute top-[35%] left-[50%] w-[550px] h-[550px] bg-[#9CAF88]/5 rounded-full blur-[130px] pointer-events-none mix-blend-screen"
-          style={{ x: '-50%', y: '-50%' }}
-          animate={{
-            x: ['-50%', '-47%', '-53%', '-50%'],
-            y: ['-50%', '-53%', '-47%', '-50%'],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+        <>
+          {/* Large blob - top-left, slow floating */}
+          <motion.div
+            className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-[#9CAF88]/4 rounded-full blur-[120px] pointer-events-none mix-blend-screen"
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -25, 20, 0],
+              scale: [1, 1.1, 0.95, 1],
+            }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          {/* Medium blob - bottom-right, different pattern */}
+          <motion.div
+            className="absolute bottom-[15%] right-[5%] w-[400px] h-[400px] bg-[#9CAF88]/3 rounded-full blur-[100px] pointer-events-none mix-blend-screen"
+            animate={{
+              x: [0, -25, 35, 0],
+              y: [0, 20, -15, 0],
+              scale: [1, 0.9, 1.05, 1],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 2,
+            }}
+          />
+          {/* Small blob - center-right, subtle pulse */}
+          <motion.div
+            className="absolute top-[40%] right-[25%] w-[300px] h-[300px] bg-[#9CAF88]/5 rounded-full blur-[90px] pointer-events-none mix-blend-screen"
+            animate={{
+              x: [0, 15, -10, 0],
+              y: [0, -10, 15, 0],
+              scale: [1, 1.15, 0.9, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 4,
+            }}
+          />
+        </>
       ) : (
-        <div
-          className="absolute top-[35%] left-[50%] w-[550px] h-[550px] bg-[#9CAF88]/5 rounded-full blur-[130px] pointer-events-none mix-blend-screen"
-          style={{ transform: 'translate(-50%, -50%)' }}
-        />
+        <>
+          {/* Static fallback for reduced motion */}
+          <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-[#9CAF88]/4 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+          <div className="absolute bottom-[15%] right-[5%] w-[400px] h-[400px] bg-[#9CAF88]/3 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+          <div className="absolute top-[40%] right-[25%] w-[300px] h-[300px] bg-[#9CAF88]/5 rounded-full blur-[90px] pointer-events-none mix-blend-screen" />
+        </>
       )}
 
       <div className="max-w-6xl mx-auto px-6 md:px-8 w-full relative z-10">
