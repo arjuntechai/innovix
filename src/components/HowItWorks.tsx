@@ -38,13 +38,13 @@ export function HowItWorks() {
           const cardVariants = prefersReducedMotion
             ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }
             : {
-                hidden: { opacity: 0, y: 30 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.6, ease: 'easeOut' as const, delay: index * 0.12 },
-                },
-              };
+              hidden: { opacity: 0, y: 30 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, ease: 'easeOut' as const, delay: index * 0.12 },
+              },
+            };
 
           return (
             <motion.div

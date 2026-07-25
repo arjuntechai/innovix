@@ -9,25 +9,25 @@ export function HowWeThink() {
   const containerVariants: Variants = prefersReducedMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
     : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.1,
-          },
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.1,
         },
-      };
+      },
+    };
 
   const itemVariants: Variants = prefersReducedMotion
     ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }
     : {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.6, ease: 'easeOut' as const },
-        },
-      };
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: 'easeOut' as const },
+      },
+    };
 
   return (
     <Section
@@ -40,7 +40,7 @@ export function HowWeThink() {
             {howWeThink.eyebrow}
           </p>
           {!prefersReducedMotion ? (
-            <motion.span 
+            <motion.span
               className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent origin-center"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -56,7 +56,7 @@ export function HowWeThink() {
         </h2>
       </div>
 
-      <motion.div 
+      <motion.div
         className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6"
         variants={containerVariants}
         initial="hidden"
@@ -71,7 +71,7 @@ export function HowWeThink() {
           >
             {/* Subtle accent hover indicator dot in the top right */}
             <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            
+
             <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-[#E8E8E8]">
               {pillar.title}
             </h3>

@@ -34,7 +34,7 @@ function ErrorText({ id, children }: { id: string; children: ReactNode }) {
 
 interface InputFieldProps
   extends FieldBase,
-    Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
   id: string;
 }
 
@@ -61,7 +61,7 @@ InputField.displayName = 'InputField';
 
 interface TextareaFieldProps
   extends FieldBase,
-    Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'> {
+  Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id'> {
   id: string;
 }
 

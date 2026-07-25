@@ -13,7 +13,7 @@ export function ForWhom() {
         <div className="relative overflow-hidden group rounded-lg bg-[#111111] border border-[#2A2A2A] p-8 md:p-10 transition-all duration-300 hover:border-accent/40">
           {/* Subtle accent hover indicator dot in the top right */}
           <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          
+
           <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-[#E8E8E8]">
             {forWhom.forTitle}
           </h3>
@@ -37,7 +37,7 @@ export function ForWhom() {
         <div className="relative overflow-hidden group rounded-lg bg-[#141414] border border-[#2A2A2A] p-8 md:p-10 transition-all duration-300 hover:border-neutral-700">
           {/* Subtle neutral hover indicator dot in the top right */}
           <div className="absolute top-4 right-4 w-1.5 h-1.5 rounded-full bg-[#6B6B6B] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          
+
           <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-[#E8E8E8]">
             {forWhom.notForTitle}
           </h3>

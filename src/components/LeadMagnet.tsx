@@ -18,7 +18,7 @@ export function LeadMagnet({ onCta }: LeadMagnetProps) {
             {leadMagnet.eyebrow}
           </p>
           {!prefersReducedMotion ? (
-            <motion.span 
+            <motion.span
               className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent origin-center"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}

@@ -9,25 +9,25 @@ export function WhatHappensNext() {
   const containerVariants: Variants = prefersReducedMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
     : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.12,
-          },
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.12,
         },
-      };
+      },
+    };
 
   const itemVariants: Variants = prefersReducedMotion
     ? { hidden: { opacity: 1, x: 0 }, visible: { opacity: 1, x: 0 } }
     : {
-        hidden: { opacity: 0, x: -12 },
-        visible: {
-          opacity: 1,
-          x: 0,
-          transition: { duration: 0.5, ease: 'easeOut' as const },
-        },
-      };
+      hidden: { opacity: 0, x: -12 },
+      visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.5, ease: 'easeOut' as const },
+      },
+    };
 
   return (
     <Section
@@ -39,7 +39,7 @@ export function WhatHappensNext() {
           {whatHappensNext.headline}
         </h2>
 
-        <motion.ol 
+        <motion.ol
           className="mt-14 md:mt-20 space-y-8 md:space-y-10"
           variants={containerVariants}
           initial="hidden"
@@ -47,8 +47,8 @@ export function WhatHappensNext() {
           viewport={{ once: true, amount: 0.15 }}
         >
           {steps.map((step, index) => (
-            <motion.li 
-              key={step.title} 
+            <motion.li
+              key={step.title}
               variants={itemVariants}
               className="flex gap-5 md:gap-6 group"
             >

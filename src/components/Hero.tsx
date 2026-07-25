@@ -9,33 +9,33 @@ interface HeroProps {
 export function Hero({ onCta }: HeroProps) {
   const prefersReducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
-  
+
   // Fade out scroll indicator as user scrolls down
   const scrollCueOpacity = useTransform(scrollY, [0, 80], [1, 0]);
 
   const containerVariants: Variants = prefersReducedMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
     : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.12,
-            delayChildren: 0.15,
-          },
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.12,
+          delayChildren: 0.15,
         },
-      };
+      },
+    };
 
   const itemVariants: Variants = prefersReducedMotion
     ? { hidden: { opacity: 1, y: 0 }, visible: { opacity: 1, y: 0 } }
     : {
-        hidden: { opacity: 0, y: 16 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-        },
-      };
+      hidden: { opacity: 0, y: 16 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+      },
+    };
 
   return (
     <section
@@ -67,7 +67,7 @@ export function Hero({ onCta }: HeroProps) {
           }}
         />
       ) : (
-        <div 
+        <div
           className="absolute top-[35%] left-[50%] w-[550px] h-[550px] bg-[#9CAF88]/5 rounded-full blur-[130px] pointer-events-none mix-blend-screen"
           style={{ transform: 'translate(-50%, -50%)' }}
         />
@@ -80,7 +80,7 @@ export function Hero({ onCta }: HeroProps) {
           initial="hidden"
           animate="visible"
         >
-          <motion.h1 
+          <motion.h1
             className="font-display text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-[-0.02em]"
             variants={itemVariants}
           >
@@ -90,7 +90,7 @@ export function Hero({ onCta }: HeroProps) {
             </span>
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             className="mt-8 max-w-[60ch] text-base md:text-lg lg:text-xl leading-relaxed text-[#A0A0A0]"
             variants={itemVariants}
           >
