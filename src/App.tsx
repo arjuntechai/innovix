@@ -1,67 +1,50 @@
-import { useCallback, useState } from 'react';
-import { motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
-import { Header } from '@/components/Header';
-import { Hero } from '@/components/Hero';
-import { ForWhom } from '@/components/ForWhom';
-import { HowItWorks } from '@/components/HowItWorks';
-import { HowWeThink } from '@/components/HowWeThink';
-import { LeadMagnet } from '@/components/LeadMagnet';
-import { WhatHappensNext } from '@/components/WhatHappensNext';
-import { FinalCta } from '@/components/FinalCta';
-import { Footer } from '@/components/Footer';
-import { LeadModal } from '@/components/LeadModal';
-import { PrivacyModal } from '@/components/PrivacyModal';
-import type { LeadSource } from '@/lib/submitLead';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
+
+// Pages
+import { LandingPage } from '@/pages/LandingPage';
+import { Login } from '@/pages/auth/Login';
+import { DashboardLayout } from '@/pages/dashboard/DashboardLayout';
+import { Leads } from '@/pages/dashboard/Leads';
+import { LeadDetail } from '@/pages/dashboard/LeadDetail';
+
+// Placeholder for dashboard overview
+function DashboardOverview() {
+  return (
+    <div>
+      <h1 className="text-3xl font-display mb-6 text-[#E8E8E8]">Overview</h1>
+      <p className="text-gray-400">Dashboard statistics will go here.</p>
+    </div>
+  );
+}
 
 export default function App() {
-  const [leadOpen, setLeadOpen] = useState(false);
-  const [leadSource, setLeadSource] = useState<LeadSource>('review-request');
-  const [privacyOpen, setPrivacyOpen] = useState(false);
-
-  const prefersReducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-
-  // Spring transition for smooth progress updates
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const progressScale = prefersReducedMotion ? scrollYProgress : scaleX;
-
-  const openLead = useCallback((source: LeadSource) => {
-    setLeadSource(source);
-    setLeadOpen(true);
-  }, []);
-
-  const closeLead = useCallback(() => setLeadOpen(false), []);
-  const openPrivacy = useCallback(() => setPrivacyOpen(true), []);
-  const closePrivacy = useCallback(() => setPrivacyOpen(false), []);
-
   return (
-    <div className="min-h-screen bg-[#0A0A0A]">
-      {/* Fixed scroll-progress bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-accent origin-left z-[9999]"
-        style={{ scaleX: progressScale }}
-      />
-      <Header onCta={() => openLead('review-request')} />
-      <main>
-        <Hero onCta={() => openLead('review-request')} />
-        <ForWhom />
-        <HowItWorks id="process" />
-        <HowWeThink id="philosophy" />
-        <LeadMagnet onCta={() => openLead('checklist')} />
-        <WhatHappensNext id="next-steps" />
-        <FinalCta onCta={() => openLead('review-request')} />
-      </main>
-      <Footer onPrivacy={openPrivacy} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
 
-      <LeadModal open={leadOpen} source={leadSource} onClose={closeLead} />
-      <PrivacyModal open={privacyOpen} onClose={closePrivacy} />
-      <Analytics />
-    </div>
+          {/* Protected Admin Routes */}
+          <Route path="/dashboard" element={<ProtectedRoute />}>
+            <Route element={<DashboardLayout />}>
+              <Route index element={<DashboardOverview />} />
+              <Route path="leads" element={<Leads />} />
+              <Route path="leads/:id" element={<LeadDetail />} />
+              {/* Other dashboard routes will go here */}
+            </Route>
+          </Route>
+        </Routes>
+        <Analytics />
+        <Toaster position="top-left" toastOptions={{ 
+          style: { background: '#111', color: '#E8E8E8', border: '1px solid #333' } 
+        }} />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
