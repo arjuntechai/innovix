@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 import { Lock, Mail, Loader2 } from 'lucide-react';
 
@@ -23,17 +22,10 @@ export function Login() {
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-      setLoading(false);
-    } else {
+    // Mock Login functionality
+    setTimeout(() => {
       navigate('/dashboard');
-    }
+    }, 1000);
   };
 
   return (

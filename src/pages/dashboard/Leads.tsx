@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
 import { Lead } from '@/types/database';
 import { Loader2, Plus, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -16,13 +15,8 @@ export function Leads() {
   const fetchLeads = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('leads')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setLeads(data || []);
+      // Mock Data empty array
+      setLeads([]);
     } catch (error: any) {
       toast.error(error.message);
     } finally {

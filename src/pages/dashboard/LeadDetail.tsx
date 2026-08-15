@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
 import { Lead } from '@/types/database';
 import { Loader2, ArrowLeft, Building2, Mail, Calendar, User, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -19,14 +18,9 @@ export function LeadDetail() {
   const fetchLead = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('leads')
-        .select('*')
-        .eq('id', id)
-        .single();
-
-      if (error) throw error;
-      setLead(data);
+      // Mock missing data
+      toast.error("Mocked mode: Lead not found.");
+      navigate('/dashboard/leads');
     } catch (error: any) {
       toast.error(error.message);
       navigate('/dashboard/leads');
@@ -38,12 +32,6 @@ export function LeadDetail() {
   const handleStatusChange = async (newStatus: string) => {
     if (!lead) return;
     try {
-      const { error } = await supabase
-        .from('leads')
-        .update({ status: newStatus })
-        .eq('id', lead.id);
-
-      if (error) throw error;
       setLead({ ...lead, status: newStatus as Lead['status'] });
       toast.success('Status updated');
     } catch (error: any) {
@@ -65,29 +53,8 @@ export function LeadDetail() {
         ? lead.company.toLowerCase().replace(/[^a-z0-9]+/g, '-') 
         : lead.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       
-      // 2. Insert into clients
-      const { data: clientData, error: clientError } = await supabase
-        .from('clients')
-        .insert([{
-          lead_id: lead.id,
-          name: lead.name,
-          email: lead.email,
-          company: lead.company,
-          slug: slug
-        }])
-        .select()
-        .single();
-
-      if (clientError) throw clientError;
-
-      // 3. Update lead status
-      await supabase
-        .from('leads')
-        .update({ status: 'converted' })
-        .eq('id', lead.id);
-
-      toast.success('Lead converted to client!');
-      navigate(`/dashboard/clients/${clientData.slug}`);
+      toast.success('Lead converted to client! (Mocked)');
+      navigate(`/dashboard/clients/${slug}`);
       
     } catch (error: any) {
       toast.error('Failed to convert: ' + error.message);
