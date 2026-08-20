@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { InputField, TextareaField } from '@/components/ui/Field';
 import { leadModal, site } from '@/content';
 import { submitLead, type LeadSource } from '@/lib/submitLead';
+import toast from 'react-hot-toast';
 
 interface LeadModalProps {
   open: boolean;
@@ -20,6 +21,7 @@ interface FormState {
   email: string;
   message: string;
   company_website: string; // honeypot
+  gdprConsent: boolean;
 }
 
 type FieldErrors = Partial<Record<keyof FormState, string>>;
@@ -33,6 +35,7 @@ const emptyForm: FormState = {
   email: '',
   message: '',
   company_website: '',
+  gdprConsent: false,
 };
 
 function normaliseUrl(raw: string): string {
@@ -63,7 +66,7 @@ export function LeadModal({ open, source, onClose }: LeadModalProps) {
 
   const isChecklist = source === 'checklist';
 
-  function setField<K extends keyof FormState>(key: K, value: string) {
+  function setField<K extends keyof FormState>(key: K, value: any) {
     setForm((prev) => ({ ...prev, [key]: value }));
     // Re-validate the changed field after a first submit attempt.
     if (attemptedSubmit) {
@@ -71,8 +74,11 @@ export function LeadModal({ open, source, onClose }: LeadModalProps) {
     }
   }
 
-  function validateField(key: keyof FormState, value: string): string | undefined {
-    const v = value.trim();
+  function validateField(key: keyof FormState, value: any): string | undefined {
+    if (key === 'gdprConsent') {
+      return value ? undefined : 'Please agree to the privacy policy.';
+    }
+    const v = (typeof value === 'string' ? value : '').trim();
     switch (key) {
       case 'fullName':
         if (!v) return leadModal.errors.required;
@@ -99,8 +105,8 @@ export function LeadModal({ open, source, onClose }: LeadModalProps) {
   function validateAll(): FieldErrors {
     const next: FieldErrors = {};
     const fields: (keyof FormState)[] = isChecklist
-      ? ['fullName', 'email']
-      : ['fullName', 'businessName', 'websiteUrl', 'email'];
+      ? ['fullName', 'email', 'gdprConsent']
+      : ['fullName', 'businessName', 'websiteUrl', 'email', 'gdprConsent'];
     for (const f of fields) {
       const err = validateField(f, form[f]);
       if (err) next[f] = err;
@@ -140,8 +146,8 @@ export function LeadModal({ open, source, onClose }: LeadModalProps) {
         company_website: form.company_website,
       });
       setStatus('success');
-    } catch {
-      // Simulated submit never throws in this build; keep button usable on error.
+    } catch (error) {
+      toast.error('Failed to send request. Please try again later.');
       setStatus('idle');
     }
   }
@@ -271,6 +277,34 @@ export function LeadModal({ open, source, onClose }: LeadModalProps) {
             onChange={(e) => setField('message', e.target.value)}
           />
         )}
+
+        <div className="flex flex-col gap-1">
+          <label className="flex items-start gap-3 cursor-pointer group">
+            <div className="flex items-center h-5">
+              <input
+                type="checkbox"
+                id={fieldId('gdprConsent')}
+                checked={form.gdprConsent}
+                onChange={(e) => setField('gdprConsent', e.target.checked)}
+                className="w-4 h-4 border-[#333333] rounded bg-transparent checked:bg-accent checked:border-accent focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[#0A0A0A] transition-colors"
+                aria-describedby={errors.gdprConsent ? errorId('gdprConsent') : undefined}
+                aria-invalid={!!errors.gdprConsent}
+              />
+            </div>
+            <span className="text-sm text-[#A0A0A0] leading-tight">
+              I agree to Innovix Designs storing my details to respond to my enquiry. See our{' '}
+              <a href="/privacy" className="text-white hover:text-accent underline transition-colors">
+                Privacy Policy
+              </a>
+              .
+            </span>
+          </label>
+          {errors.gdprConsent && (
+            <span id={errorId('gdprConsent')} className="text-sm text-red-500 pl-7">
+              {errors.gdprConsent}
+            </span>
+          )}
+        </div>
 
         <Button type="submit" fullWidth disabled={status === 'sending'}>
           {status === 'sending' ? 'Sending\u2026' : copy.submitLabel}

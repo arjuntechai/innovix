@@ -11,11 +11,31 @@ export interface LeadPayload {
   company_website?: string;
 }
 
-// TODO: replace the simulated delay with a POST to a form service
-// (e.g. Formspree/Web3Forms endpoint). Delivers to hello@innovixdesigns.com.
-// Nothing else in the app needs to change.
 export async function submitLead(payload: LeadPayload): Promise<void> {
-  // Simulate network latency so the UI can show its sending state.
-  await new Promise((resolve) => setTimeout(resolve, 900));
-  console.log('[submitLead] payload:', payload);
+  // Map fields to match the webhook requirements
+  const data = {
+    source: payload.source === 'review-request' ? 'website_review_request' : payload.source,
+    full_name: payload.fullName,
+    email: payload.email,
+    business_name: payload.businessName,
+    website_url: payload.websiteUrl,
+    main_goal: payload.message,
+    submitted_at: new Date().toISOString(),
+  };
+
+  const response = await fetch('/api/lead-review', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('[submitLead] failed:', response.status, errorText);
+    throw new Error('Failed to submit request');
+  }
+
+  console.log('[submitLead] success');
 }
